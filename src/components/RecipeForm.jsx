@@ -64,35 +64,35 @@ function RecipeForm({ onSave, onCancel, initialRecipe }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Title</label>
+    <form onSubmit={handleSubmit} className="card p-6">
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Title</label>
         <input
           type="text"
           value={recipe.title}
           onChange={(e) => setRecipe({...recipe, title: e.target.value})}
-          className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          className="input"
           required
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Description</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Description</label>
         <textarea
           value={recipe.description}
           onChange={(e) => setRecipe({...recipe, description: e.target.value})}
-          className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          className="input min-h-[100px]"
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Ingredients</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Ingredients</label>
         {recipe.ingredients.map((ing, index) => (
-          <div key={index} className="flex gap-2 mb-2">
+          <div key={index} className="flex gap-3 mb-3">
             <input
               type="text"
               placeholder="Name"
               value={ing.name}
               onChange={(e) => updateIngredient(index, 'name', e.target.value)}
-              className="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+              className="input flex-1"
               required
             />
             <input
@@ -100,13 +100,13 @@ function RecipeForm({ onSave, onCancel, initialRecipe }) {
               placeholder="Quantity"
               value={ing.quantity}
               onChange={(e) => updateIngredient(index, 'quantity', e.target.value)}
-              className="w-24 p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+              className="input w-24"
               required
             />
             <select
               value={ing.unit}
               onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
-              className="w-24 p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+              className="input w-24"
             >
               <option value="g">g</option>
               <option value="kg">kg</option>
@@ -118,7 +118,7 @@ function RecipeForm({ onSave, onCancel, initialRecipe }) {
             <button
               type="button"
               onClick={() => removeIngredient(index)}
-              className="p-2 text-red-500"
+              className="p-3 text-red-500 hover:text-red-600 transition-colors duration-200"
             >
               <FaTrash />
             </button>
@@ -127,19 +127,19 @@ function RecipeForm({ onSave, onCancel, initialRecipe }) {
         <button
           type="button"
           onClick={addIngredient}
-          className="text-blue-500"
+          className="text-indigo-600 hover:underline mt-2"
         >
           + Add Ingredient
         </button>
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Steps</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Steps</label>
         {recipe.steps.map((step, index) => (
-          <div key={index} className="flex gap-2 mb-2">
+          <div key={index} className="flex gap-3 mb-3">
             <textarea
               value={step}
               onChange={(e) => updateStep(index, e.target.value)}
-              className="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+              className="input min-h-[80px]"
               required
             />
           </div>
@@ -147,61 +147,61 @@ function RecipeForm({ onSave, onCancel, initialRecipe }) {
         <button
           type="button"
           onClick={addStep}
-          className="text-blue-500"
+          className="text-indigo-600 hover:underline mt-2"
         >
           + Add Step
         </button>
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Cooking Time (min)</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Cooking Time (min)</label>
         <input
           type="number"
           value={recipe.cookingTime}
           onChange={(e) => setRecipe({...recipe, cookingTime: e.target.value})}
-          className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          className="input"
           required
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Servings</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Servings</label>
         <input
           type="number"
           value={recipe.servings}
           onChange={(e) => setRecipe({...recipe, servings: parseInt(e.target.value)})}
-          className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          className="input"
           min="1"
           required
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Tags (comma-separated)</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Tags (comma-separated)</label>
         <input
           type="text"
           value={recipe.tags}
           onChange={(e) => setRecipe({...recipe, tags: e.target.value})}
-          className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          className="input"
         />
       </div>
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-1">Image</label>
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2 text-gray-700">Image</label>
         <input
           type="file"
           accept="image/*"
           onChange={handleImageChange}
-          className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+          className="input"
         />
       </div>
       <div className="flex gap-4">
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="btn-primary"
         >
           Save
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="bg-gray-300 dark:bg-gray-600 px-4 py-2 rounded hover:bg-gray-400 dark:hover:bg-gray-700"
+          className="btn-secondary"
         >
           Cancel
         </button>

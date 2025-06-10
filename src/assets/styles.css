@@ -1,5 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap') layer(base);
+
 @import "tailwindcss";
 
-body {
-  @apply min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+@layer base {
+  body {
+    @apply min-h-screen bg-gray-50 text-gray-900 font-['Inter',sans-serif];
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl;
+  }
+  .btn-primary {
+    @apply bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors duration-200;
+  }
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition-colors duration-200;
+  }
+  .input {
+    @apply w-full p-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200;
+  }
 }

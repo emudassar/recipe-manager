@@ -4,7 +4,6 @@ import RecipeCard from './components/RecipeCard'
 import RecipeForm from './components/RecipeForm'
 import RecipeDetail from './components/RecipeDetail'
 import SearchFilter from './components/SearchFilter'
-import ThemeToggle from './components/ThemeToggle'
 import { FiPlus } from 'react-icons/fi'
 
 function App() {
@@ -50,11 +49,10 @@ function App() {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Recipe Manager</h1>
-        <ThemeToggle />
-      </div>
+    <div className="container mx-auto p-6 max-w-7xl">
+      <header className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-bold text-indigo-600">Recipe Manager</h1>
+      </header>
       
       {showForm ? (
         <RecipeForm 
@@ -72,7 +70,7 @@ function App() {
       ) : (
         <>
           <SearchFilter onFilter={handleFilter} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredRecipes.map(recipe => (
               <RecipeCard 
                 key={recipe.id} 
@@ -83,7 +81,7 @@ function App() {
           </div>
           <button
             onClick={() => setShowForm(true)}
-            className="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-blue-600"
+            className="fixed bottom-6 right-6 btn-primary p-4 rounded-full shadow-xl hover:scale-105 transition-transform duration-200"
           >
             <FiPlus size={24} />
           </button>

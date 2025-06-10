@@ -9,18 +9,18 @@ function SearchFilter({ onFilter }) {
   }, [search, tag])
 
   return (
-    <div className="flex gap-4 mb-6">
+    <div className="flex flex-col sm:flex-row gap-4 mb-8">
       <input
         type="text"
         placeholder="Search recipes or ingredients..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+        className="input flex-1"
       />
       <select
         value={tag}
         onChange={(e) => setTag(e.target.value)}
-        className="p-2 border rounded dark:bg-gray-700 dark:border-gray-600"
+        className="input w-full sm:w-48"
       >
         <option value="">All Tags</option>
         <option value="vegetarian">Vegetarian</option>
