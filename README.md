@@ -33,6 +33,7 @@ npm: Included with Node.js (npm -v to check)
 Installation
 
 Clone the Repository:
+
 git clone https://github.com/your-username/recipe-manager.git
 cd recipe-manager
 
