@@ -34,7 +34,7 @@ Installation
 
 Clone the Repository:
 
-git clone https://github.com/your-username/recipe-manager.git
+git clone https://github.com/emudassar/recipe-manager.git
 cd recipe-manager
 
 
