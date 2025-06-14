@@ -6,7 +6,7 @@ import RecipeDetail from './components/RecipeDetail'
 import SearchFilter from './components/SearchFilter'
 import { FiPlus } from 'react-icons/fi'
 
-// Parse URL search parameters without React Router
+// Parse URL search parameters
 function useQuery() {
   return new URLSearchParams(window.location.search);
 }
@@ -19,30 +19,30 @@ function App() {
   const [isEditing, setIsEditing] = useState(false)
   const query = useQuery()
 
-  // Restore selected recipe from URL or localStorage on load
+  // Restore selected recipe from URL or localStorage on initial load
   useEffect(() => {
     const savedRecipeId = localStorage.getItem('selectedRecipeId')
     const urlRecipeId = query.get('recipe')
     const recipeId = urlRecipeId || savedRecipeId
-    if (recipeId && recipes.length > 0) {
+    if (recipeId && !selectedRecipe && recipes.length > 0) {
       const recipe = recipes.find(r => r.id === recipeId)
       if (recipe) setSelectedRecipe(recipe)
     }
     saveRecipes(recipes)
     setFilteredRecipes(recipes)
-  }, [recipes, query])
+  }, [recipes, query, selectedRecipe]) // Added selectedRecipe to dependency array
 
-  // Update URL and localStorage when selectedRecipe changes
+  // Update URL and localStorage only when selectedRecipe changes via user action
   useEffect(() => {
-    if (selectedRecipe) {
+    if (selectedRecipe && !query.get('recipe')) {
       const newUrl = `${window.location.pathname}?recipe=${selectedRecipe.id}`
       window.history.pushState({}, '', newUrl)
       localStorage.setItem('selectedRecipeId', selectedRecipe.id)
-    } else {
+    } else if (!selectedRecipe && query.get('recipe')) {
       window.history.pushState({}, '', window.location.pathname)
       localStorage.removeItem('selectedRecipeId')
     }
-  }, [selectedRecipe])
+  }, [selectedRecipe, query])
 
   const addRecipe = (recipe) => {
     setRecipes([...recipes, { ...recipe, id: Date.now().toString() }])
@@ -52,7 +52,7 @@ function App() {
   const updateRecipe = (updatedRecipe) => {
     setRecipes(recipes.map(r => r.id === updatedRecipe.id ? updatedRecipe : r))
     setShowForm(false)
-    setSelectedRecipe(null) // Reset to avoid staying in edit mode
+    setSelectedRecipe(null) // Reset to homepage after update
   }
 
   const deleteRecipe = (id) => {
