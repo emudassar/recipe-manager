@@ -6,17 +6,43 @@ import RecipeDetail from './components/RecipeDetail'
 import SearchFilter from './components/SearchFilter'
 import { FiPlus } from 'react-icons/fi'
 
+// Parse URL search parameters without React Router
+function useQuery() {
+  return new URLSearchParams(window.location.search);
+}
+
 function App() {
   const [recipes, setRecipes] = useState(loadRecipes())
   const [filteredRecipes, setFilteredRecipes] = useState(recipes)
   const [showForm, setShowForm] = useState(false)
   const [selectedRecipe, setSelectedRecipe] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
+  const query = useQuery()
 
+  // Restore selected recipe from URL or localStorage on load
   useEffect(() => {
+    const savedRecipeId = localStorage.getItem('selectedRecipeId')
+    const urlRecipeId = query.get('recipe')
+    const recipeId = urlRecipeId || savedRecipeId
+    if (recipeId && recipes.length > 0) {
+      const recipe = recipes.find(r => r.id === recipeId)
+      if (recipe) setSelectedRecipe(recipe)
+    }
     saveRecipes(recipes)
     setFilteredRecipes(recipes)
-  }, [recipes])
+  }, [recipes, query])
+
+  // Update URL and localStorage when selectedRecipe changes
+  useEffect(() => {
+    if (selectedRecipe) {
+      const newUrl = `${window.location.pathname}?recipe=${selectedRecipe.id}`
+      window.history.pushState({}, '', newUrl)
+      localStorage.setItem('selectedRecipeId', selectedRecipe.id)
+    } else {
+      window.history.pushState({}, '', window.location.pathname)
+      localStorage.removeItem('selectedRecipeId')
+    }
+  }, [selectedRecipe])
 
   const addRecipe = (recipe) => {
     setRecipes([...recipes, { ...recipe, id: Date.now().toString() }])
@@ -26,7 +52,7 @@ function App() {
   const updateRecipe = (updatedRecipe) => {
     setRecipes(recipes.map(r => r.id === updatedRecipe.id ? updatedRecipe : r))
     setShowForm(false)
-    setSelectedRecipe(null)
+    setSelectedRecipe(null) // Reset to avoid staying in edit mode
   }
 
   const deleteRecipe = (id) => {
