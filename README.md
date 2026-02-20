@@ -1,5 +1,7 @@
 Recipe Manager
 
+Demo : https://recipe-manager-three.vercel.app/
+
 A modern, user-friendly web application for managing and organizing your favorite recipes. Built with React, Vite, and Tailwind CSS, Recipe Manager offers a seamless experience for creating, editing, and sharing recipes with a clean and responsive interface.
 
 Features:
